@@ -2,18 +2,19 @@ import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
 
 import Lists from "./Lists";
+import Time from "./CurrentTime";
 
 const rootElement = document.getElementById("root");
 const root = createRoot(rootElement);
 
-function r(){
+function renderWithUpdates(){
   root.render(
   <StrictMode>
-    <Lists />
+    <Time />
   </StrictMode>
 );
   }
 
-setInterval(r, 1000);
+setInterval(renderWithUpdates, 1000);
 
 
