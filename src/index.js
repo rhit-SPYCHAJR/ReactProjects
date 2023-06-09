@@ -13,8 +13,17 @@ function renderWithUpdates(){
     <Time />
   </StrictMode>
 );
-  }
+}
 
-setInterval(renderWithUpdates, 1000);
+function staticRender(){
+  root.render(
+  <StrictMode>
+    <Lists />
+  </StrictMode>
+);
+}
+
+//setInterval(renderWithUpdates, 1000);
+staticRender();
 
 

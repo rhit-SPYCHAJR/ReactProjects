@@ -5,10 +5,9 @@ const products = [
   { title: "Garlic", amount: "4 cloves", priority: "low" },
   { title: "Apple", amount: "3 lbs", priority: "high" },
   { title: "Bread", amount: "1 loaf", priority: "med" },
-  { title: "Eggs", amount: "2 dozen", priority: "high" }
-];
-
-const priorityLevels = ["low", "med", "high"]
+  { title: "Eggs", amount: "2 dozen", priority: "high" }];
+const priorityLevels = ["high","med","low"];
+const simpleView = true;
 
 function ListItems() {
   const items = products.map((product) => (
@@ -39,7 +38,7 @@ export default function MyList() {
     <p>
       <h1>Shopping list</h1>
       <div>
-        <ListByPriority />
+        {simpleView ? <ListItems /> : <ListByPriority />}
       </div>
     </p>
   );
