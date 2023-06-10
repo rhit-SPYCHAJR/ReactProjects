@@ -4,6 +4,9 @@ import { createRoot } from "react-dom/client";
 import Lists from "./Lists";
 import Time from "./CurrentTime";
 import Todo from "./ToDo";
+//import TTT from "./TicTacToe";
+import Comp from "./Components";
+import Hello from "./Hello"
 
 const rootElement = document.getElementById("root");
 const root = createRoot(rootElement);
@@ -19,7 +22,7 @@ function renderWithUpdates(){
 function staticRender(){
   root.render(
   <StrictMode>
-    <Todo />
+    <Hello />
   </StrictMode>
 );
 }
