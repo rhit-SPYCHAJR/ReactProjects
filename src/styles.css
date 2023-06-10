@@ -2,3 +2,19 @@
     font-family: sans-serif;
     text-align: center;
   }
+
+table tbody tr td{
+  border: 1px solid black;
+  text-align: center;
+}
+
+table{
+  width: 700px;
+  height: 700px;
+}
+
+#footer{
+  font-size: 30px;
+  text-align: left;
+}
+

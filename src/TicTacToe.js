@@ -1,11 +1,20 @@
-import {React, ReactDOM} from "react";
+import React from "react";
+import "./styles.css";
 
 //player 1 is X, player 2 is O
 //player 1 always goes first
 
+let i = 1;
+let player = 1;
+
 function symToPl(symbol){
     if (symbol == 'X') return 'P1';
     else if (symbol == 'O') return 'P2';
+}
+
+function plToSym(player){
+    if (player == 1) return "X";
+    else return "O";
 }
 
 function detectWin(){
@@ -16,18 +25,20 @@ function detectWin(){
     return false;
 }
 
-function handleClick(){
-
+function nextTurn(){
+    let winner = detectWin();
+    if (winner) alert(winner + " has won!");
+    if (player == 1) player = 2;
+    else player = 1;
 }
 
-let i = 1;
-let player = 1;
-
 class Square extends React.Component{
-    constructor(){
-        super();
-        this.symbol = " ";
-        this.id = i;
+    constructor(props){
+        super(props);
+        this.state = {
+            symbol: "( )",
+            id: i
+        }
         i++;
     }
 
@@ -41,40 +52,40 @@ class Square extends React.Component{
 
     render(){
         return (
-            <div onClick = "handleClick(this.id, this.symbol)">{this.symbol}</div>
+            <td onClick={() => {
+                if (player == 1) this.setState({symbol: "X"})
+                else this.setState({symbol: "O"})
+                nextTurn();
+            }}>{this.state.symbol}</td>
         )
     }
 } 
 
 let allSquares = [];
 for (let j = 1; j < 10; j++){
-    allSquares.push(new Square());
+    allSquares.push(<Square/>);
 }
 
 let table = <table>
-                <tr>
-                    <td>{allSquares[0]}</td>
+                <tbody>
+                    <tr>
+                        {allSquares[0]}
+                        {allSquares[1]}
+                        {allSquares[2]}
+                    </tr>
 
-                    <td>{allSquares[1]}</td>
+                    <tr>
+                        {allSquares[3]}
+                        {allSquares[4]}
+                        {allSquares[5]}
+                    </tr>
 
-                    <td>{allSquares[2]}</td>
-                </tr>
-
-                <tr>
-                    <td>{allSquares[3]}</td>
-
-                    <td>{allSquares[4]}</td>
-
-                    <td>{allSquares[5]}</td>
-                </tr>
-
-                <tr>
-                    <td>{allSquares[6]}</td>
-
-                    <td>{allSquares[7]}</td>
-
-                    <td>{allSquares[8]}</td>
-                </tr>
+                    <tr>
+                        {allSquares[6]}
+                        {allSquares[7]}
+                        {allSquares[8]}
+                    </tr>
+                </tbody>
 </table>
 
 
@@ -82,7 +93,7 @@ export default function MainBoard(){
     return (
         <div>
             <div>{table}</div>
-            <div>It is player {player}'s turn</div>
+            <div id="footer">It is {plToSym(player)}'s turn</div>
         </div>
     )
 }
