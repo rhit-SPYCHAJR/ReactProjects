@@ -4,8 +4,41 @@ import "./styles.css";
 //player 1 is X, player 2 is O
 //player 1 always goes first
 
-let i = 1;
-let player = 1;
+let nextSquareID = 1;
+
+class PlayerManager extends React.Component{
+    constructor(props){
+        super(props);
+        this.state = {
+            player: 1
+        }
+    }
+
+    render(){
+        return (
+            <div>
+                Current player: <div id="cp">{this.state.player}</div>
+                Note: player 1:X, player 2: O
+            </div>
+        )
+    }
+}
+
+function getCurrentPlayer(){
+    return Number(document.getElementById('cp').innerHTML);
+}
+
+function getSymbol(box){
+    console.log("retrieving " + box);
+    console.log("found: " + document.getElementById(box).innerHTML);
+    return document.getElementById(box).innerHTML;
+}
+
+function getID(){
+    const x = nextSquareID;
+    nextSquareID++;
+    return x;
+}
 
 function symToPl(symbol){
     if (symbol == 'X') return 'P1';
@@ -18,45 +51,44 @@ function plToSym(player){
 }
 
 function detectWin(){
-    for(let k=1;k<4;k+=3) if ((allSquares[k].symbol != " ") && (allSquares[k].symbol == allSquares[k+1].symbol && allSquares[k+1].symbol == allSquares[k+2].symbol)) return allSquares[k].symbol;
-    for(let k=1;k<4;k++) if ((allSquares[k].symbol != " ") && (allSquares[k].symbol == allSquares[k+3].symbol && allSquares[k+3].symbol == allSquares[k+6].symbol)) return allSquares[k].symbol;
-    if ((allSquares[1].symbol != " ") && (allSquares[1].symbol == allSquares[5].symbol && allSquares[5].symbol == allSquares[9].symbol)) return allSquares[1].symbol;
-    if ((allSquares[3].symbol != " ") && (allSquares[3].symbol == allSquares[5].symbol && allSquares[5].symbol == allSquares[7].symbol)) return allSquares[3].symbol;
+    console.log("bingo");
+    for(let a=1;a<4;a+=3) if ((getSymbol(a) != " ") && (getSymbol(a) == getSymbol(a+1) && getSymbol(a+1) == getSymbol(a+2))) return getSymbol(a);
+    for(let b=1;b<4;b++) if ((getSymbol(b) != " ") && (getSymbol(b) == getSymbol(b+3) && getSymbol(b+3) == getSymbol(b+6))) return getSymbol(b);
+    if ((getSymbol(1) != " ") && (getSymbol(1) == getSymbol(5) && getSymbol(5) == getSymbol(9))) return getSymbol(1);
+    if ((getSymbol(3) != " ") && (getSymbol(3) == getSymbol(5) && getSymbol(5) == getSymbol(7))) return getSymbol(3);
     return false;
 }
 
 function nextTurn(){
     let winner = detectWin();
     if (winner) alert(winner + " has won!");
-    if (player == 1) player = 2;
-    else player = 1;
+    let cp = Number(document.getElementById('cp').innerHTML);
+    if (cp == 1) document.getElementById('cp').innerHTML = 2;
+    else document.getElementById('cp').innerHTML = 1;
 }
 
 class Square extends React.Component{
     constructor(props){
         super(props);
         this.state = {
-            symbol: "( )",
-            id: i
+            symbol: " ",
+            id: getID()
         }
-        i++;
     }
 
-    P1(){
-        this.symbol = "X";
-    }
-
-    P2(){
-        this.symbol = "O";
+    symbol(){
+        return this.state.symbol;
     }
 
     render(){
         return (
-            <td onClick={() => {
-                if (player == 1) this.setState({symbol: "X"})
-                else this.setState({symbol: "O"})
-                nextTurn();
-            }}>{this.state.symbol}</td>
+            <td id = {this.state.id/2} onClick={() => {
+                if(this.state.symbol == " "){
+                    if (getCurrentPlayer() == 1) this.setState({symbol: "X"});
+                    else this.setState({symbol: "O"});
+                    nextTurn();
+                }
+            }}>{this.state.symbol != " " && this.state.symbol}</td>
         )
     }
 } 
@@ -93,7 +125,7 @@ export default function MainBoard(){
     return (
         <div>
             <div>{table}</div>
-            <div id="footer">It is {plToSym(player)}'s turn</div>
+            <PlayerManager/>
         </div>
     )
 }

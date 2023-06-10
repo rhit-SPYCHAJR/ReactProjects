@@ -8,9 +8,14 @@ table tbody tr td{
   text-align: center;
 }
 
+td {
+  width: 200px;
+  height: 200px;
+}
+
 table{
-  width: 700px;
-  height: 700px;
+  width: 600px;
+  height: 600px;
 }
 
 #footer{
