@@ -7,6 +7,9 @@ import Todo from "./ToDo";
 import TTT from "./TicTacToe";
 import Car from "./Car";
 import Hello from "./Hello"
+import Greet from "./Greeter"
+import States from "./States"
+import Listen from "./Listener"
 
 const rootElement = document.getElementById("root");
 const root = createRoot(rootElement);
@@ -22,7 +25,7 @@ function renderWithUpdates(){
 function staticRender(){
   root.render(
   <StrictMode>
-    <TTT />
+    <Listen />
   </StrictMode>
 );
 }
