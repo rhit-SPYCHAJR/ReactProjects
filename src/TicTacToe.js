@@ -15,8 +15,8 @@ class BoardManager extends React.Component{
     }
 
     generateEmpty(i){
-        let x = new Array(9);
-        for (let k = 0; k < 9; k++){
+        let x = new Array(i);
+        for (let k = 0; k < i; k++){
             x[k] = " ";
         }
         return x

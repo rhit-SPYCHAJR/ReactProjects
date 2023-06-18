@@ -7,7 +7,7 @@ const products = [
   { title: "Bread", amount: "1 loaf", priority: "med" },
   { title: "Eggs", amount: "2 dozen", priority: "high" }];
 const priorityLevels = ["high","med","low"];
-const simpleView = true;
+const simpleView = false;
 
 function ListItems() {
   const items = products.map((product) => (
