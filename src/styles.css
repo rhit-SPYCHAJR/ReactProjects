@@ -24,3 +24,16 @@ table{
   text-align: left;
 }
 
+header{
+  font-size: 40px;
+}
+
+.container{
+  display: flex;
+  flex-direction: column;
+}
+
+.container > *{
+  margin: auto;
+}
+

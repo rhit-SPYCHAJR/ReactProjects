@@ -1,5 +1,5 @@
 import React from "react";
-import "./styles.css";
+import "./ttt.css";
 
 //player 1 is X, player 2 is O
 //player 1 always goes first

@@ -7,6 +7,7 @@ import TTT from "./TicTacToe";
 import Button from "./Button"
 import Greet from "./Greeter"
 import Listen from "./Listener"
+import Task from "./TaskManager"
 
 const rootElement = document.getElementById("root");
 const root = createRoot(rootElement);
@@ -22,7 +23,7 @@ function renderWithUpdates(){
 function staticRender(){
   root.render(
   <StrictMode>
-    <Lists />
+    <Task />
   </StrictMode>
 );
 }

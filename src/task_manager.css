@@ -1,0 +1,51 @@
+header{
+    font-size: 60px;
+}
+
+button {
+    font-size: 25px;
+    border-radius: 13px;
+    border-width: 1px;
+    background-color: rgb(203, 226, 245);
+}
+
+.back{
+    width: 80px;
+}
+
+.inputs > *{
+    font-size: 20px;
+}
+
+.container{
+    display: flex;
+    flex-direction: column;
+  }
+  
+.container > *{
+    margin: auto;
+}
+
+.card{
+    width: 310px;
+    background-color:rgb(215, 162, 250);
+    border-radius: 5px;
+    position: relative;
+    z-index: 0;
+}
+
+.cardHeader{
+    font-size: 30px;
+}
+
+.card > * :not(.cardHeader){
+    font-size: 12px;
+}
+
+.label{
+    font-size: 13px;
+    position: absolute;
+    top: 5%;
+    right: 2%;
+    z-index: 3;
+}
