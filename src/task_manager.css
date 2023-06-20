@@ -2,7 +2,7 @@ header{
     font-size: 60px;
 }
 
-button {
+button:not(.card > *){
     font-size: 25px;
     border-radius: 13px;
     border-width: 1px;
@@ -28,10 +28,14 @@ button {
 
 .card{
     width: 310px;
-    background-color:rgb(215, 162, 250);
+    height: 75px;
+    background-color:rgb(38 199 131 / 16%); 
     border-radius: 5px;
     position: relative;
     z-index: 0;
+    border: 1px solid black;
+    margin: 10px 0;
+    padding: 0 0 1px 4px;
 }
 
 .cardHeader{
@@ -48,4 +52,28 @@ button {
     top: 5%;
     right: 2%;
     z-index: 3;
+}
+
+.toolbarHeader{
+    font-size: 25px;
+}
+
+.toolbar{
+    position: absolute;
+    top: 1%;
+    right: 2%;
+    display: flex;
+    flex-direction: column;
+}
+
+.toolbar > *{
+    margin: 3px 0;
+}
+
+.delete{
+    position: absolute;
+    top: 0;
+    right: -8%;
+    background-color: red;
+    border-radius: 7px;
 }
