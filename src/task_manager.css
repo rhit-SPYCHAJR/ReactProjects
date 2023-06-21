@@ -66,6 +66,14 @@ button:not(.card > *){
     flex-direction: column;
 }
 
+.organize{
+    position: absolute;
+    top: 1%;
+    left: 10%;
+    display: flex;
+    flex-direction: column;
+}
+
 .toolbar > *{
     margin: 3px 0;
 }

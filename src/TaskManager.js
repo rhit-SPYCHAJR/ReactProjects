@@ -17,7 +17,8 @@ function AddTaskInfo({visibility, onSubmit, onBack}){
         const x = [];
         x[0] = document.getElementById('name').value;
         x[1] = document.getElementById('info').value;
-        x[2] = document.getElementById('priority').value;
+        let k = document.getElementById('priority').value;
+        x[2] = (k != "Select a priority") ? k : "None";
         x[3] = document.getElementById('due').value;
         document.getElementById('name').value = "";
         document.getElementById('info').value = "";
@@ -65,8 +66,7 @@ function Task({name, priority, due, info, id, onDelete}){
         onDelete(id);
     }
     let color = "white";
-    if (priority == "Select a priority") priority = false;
-    else switch (priority){
+    switch (priority){
         case "High": 
             color = "rgb(229 96 97)";
             break;
@@ -76,6 +76,7 @@ function Task({name, priority, due, info, id, onDelete}){
         case "Low": 
             color = "rgb(138 221 138)";
             break;
+        case "None":
         default:
             color = "white";
             break;
@@ -92,7 +93,6 @@ function Task({name, priority, due, info, id, onDelete}){
             {info && <div>Notes: {info}</div>}
             <div className = "label" style={{backgroundColor: color}}>{priority && priority}</div>
             {due && <div>Due date: {due}</div>}
-            <div>Testing: {id}</div>
             <DeleteTask onClick = {() => {deleteSelf()}}/>
         </div>
     )
@@ -109,6 +109,7 @@ class Manager extends React.Component{
         super(props);
         this.state = {
             addMenuVisible: false,
+            searchResults: [],
             tasks: []
         }
     }
@@ -135,8 +136,6 @@ class Manager extends React.Component{
     }
 
     deleteTask(id){
-        console.log("before: " + this.state.tasks.map((x) => (x.props.name + "(" + x.props.id + ")")));
-        console.log("id: " + id);
         let x = this.state.tasks;
         for(let j = 0; j < x.length; j++){
             if (x[j].props.id == id){
@@ -145,7 +144,26 @@ class Manager extends React.Component{
             }
         }
         this.setState({tasks: x});
-        console.log("after: " + this.state.tasks.map((x) => (x.props.name + "(" + x.props.id + ")")));
+    }
+
+    sortByPriority(){
+        let priority = ["High", "Normal", "Low", "None"];
+        let tasks = this.state.tasks;
+        let sorted = [];
+        priority.forEach(p => {
+            tasks.forEach(t => {
+                if (t.props.priority == p) sorted.push(t);
+            });
+        });
+       this.setState({tasks: sorted});
+    }
+
+    search(query){
+        let results = [];
+        this.state.tasks.forEach(t => {
+            if (t.props.name.startsWith(query)) results.push(t);
+        });
+        this.setState({searchResults: results});
     }
 
     openAddMenu(){
@@ -211,6 +229,15 @@ class Manager extends React.Component{
                     {this.state.tasks.length > 0 && <button onClick = {() => {this.saveAll()}}>Save</button>}
                     <button onClick = {() => {this.loadFromLocal()}}>Load</button>
                     <button onClick = {() => {this.clearLocal()}}>Clear</button>
+                </div>
+                <div className = "organize">
+                    <div className = "toolbarHeader">Search and sort</div>
+                    <button onClick = {() => {this.sortByPriority()}}>Sort by priority</button>
+                    <div>
+                        <input type="text" id = "search"/>
+                        <button onClick = {() => {this.search(document.getElementById("search").value)}}>Search</button>
+                        <div>{this.state.searchResults}</div>
+                    </div>
                 </div>
                 
             </div>
